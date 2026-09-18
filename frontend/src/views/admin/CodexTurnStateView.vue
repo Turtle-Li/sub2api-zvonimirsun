@@ -1,9 +1,6 @@
 <template>
   <AppLayout>
     <div class="space-y-4">
-      <div class="flex justify-end">
-        <RouterLink to="/admin/accounts" class="btn btn-secondary">{{ t('admin.codexTurnState.accounts') }}</RouterLink>
-      </div>
       <div v-if="panelStartupError" role="alert" class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
         <span>{{ t('admin.codexTurnState.unavailable') }}</span>
         <button type="button" class="btn btn-secondary" @click="reloadPanel">{{ t('common.refresh') }}</button>
@@ -56,7 +53,6 @@
 </template>
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/components/layout/AppLayout.vue'
 import BaseDialog from '@/components/common/BaseDialog.vue'

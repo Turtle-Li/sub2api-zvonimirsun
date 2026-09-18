@@ -196,3 +196,17 @@ or matching response-model label with a guarantee of model quality.
 If host settings injection fails and the fallback HTML has no nonce-bearing
 script, the existing CSP still blocks initialization; the new watchdog exposes
 a retryable error. This does not weaken CSP or bypass the settings failure.
+
+## Monitor configuration discoverability
+
+The first panel section owns probe account/model management: choose an existing
+account, add a model, and remove individual monitored models from grouped account
+rows. Removing the last model stops that account's monitoring; existing pins
+expire naturally. This reuses the existing account picker and model upsert/delete
+API, without changing the probe engine. The misleading link to general account
+administration is removed, and manual task history is separated below status.
+The displayed 60-second interval is a local expiry check, not a model request;
+only due/missing/invalid/wrong-length states enter harvesting (or explicit manual
+requests, subject to backoff). Both configured accounts now have exactly the
+three requested models; the previously retained luna was removed from monitoring
+at the user's request, without deleting its still-valid stored state.
