@@ -15,7 +15,7 @@ The integration is packaged and locally verified against the already deployed cu
 - The Vue wrapper embeds an adapted copy of the existing panel in an opaque sandbox. Only a bounded allowlisted postMessage bridge calls the existing admin-authenticated API; no admin token enters the frame.
 - The Go handler forwards allowed control/read requests to the explicitly configured private daemon. It does not own scheduling or probes.
 - Existing Go pinned-state helper and model-degradation SQL/helpers are directly reused, with minimal constructor/authentication compatibility adaptation. Preserve OAuth-like, model alias and expiry behavior and the original pause semantics (existing pins expire naturally).
-- No live probe, deployment or reuse of sibling production credentials is authorized by this implementation. Dedicated test SSH identity and pending target are kept in the private infrastructure registry and local ignored `docs/deploy/test-server.md`.
+- Implementation alone does not authorize a deployment or live probe. Later owner-authorized live work is recorded below and in the private deployment record; never reuse sibling production credentials. Current operational handoff: `codex-turn-state-ai-handoff.md`.
 
 ## Acceptance and validation
 
@@ -73,7 +73,7 @@ Root owns integration; delegated work is confined to the new proxy-import adapte
 
 ## Local validation (2026-09-18)
 
-Implementation ready for independent server smoke; not deployed or accepted.
+Initial pre-deployment snapshot (later deployment and corrections are recorded below).
 
 - Four source-file SHA-256 checks match the pinned manifest.
 - All 71 Python tests passed, including shared pool continuation, deferred
@@ -188,7 +188,8 @@ rendering, API errors and desktop-dark/mobile-light layouts; nonce/watchdog/
 message-source regressions extend the Vue tests.
 
 Operational correction: both selected accounts monitor astra, sol and terra,
-each with its own account/model pin. Existing luna monitoring remains separate.
+each with its own account/model pin. Luna was temporarily retained at this stage,
+then removed from monitoring in the subsequent correction below.
 Read-only live diagnostics confirmed normal scheduled renewal had continued;
 CSP failure affected visibility, not the daemon. Do not equate a valid 292 pin
 or matching response-model label with a guarantee of model quality.
