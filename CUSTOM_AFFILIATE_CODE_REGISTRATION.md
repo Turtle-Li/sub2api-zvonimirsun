@@ -77,6 +77,16 @@
 - 文本联系方式与二维码彼此独立，任一已配置时均显示联系区域；未配置文本时可只展示二维码。
 - 图片按可用宽度自适应展示，不增加点击或悬停交互。
 
+## Codex Turn-State 续期与监控
+
+- 新增 Codex turn-state 管理能力，用于监控账号模型的 pinned turn-state、续期状态和上游降级情况。
+- 管理后台新增 Codex Turn-State 页面、状态面板和操作接口，面板请求通过 `/api/v1/admin/codex-turn-state/*` 代理到本地管理器服务。
+- 新增 `tools/codex-turn-state-manager/` 工具，负责账号轮换、状态续期、探测、诊断、统计和面板服务，并附带独立测试与配置示例。
+- 后端保存和合并账号数据时保留最新的 Codex pinned turn-state；对 Codex PIN 和账号敏感信息进行脱敏，避免在管理接口和审计日志中泄露。
+- 增加模型降级检测和快照增强：能够区分已降级、无记录和状态未知，并在管理面板中展示。
+- 新增 `CODEX_TURN_STATE_PANEL_URL` 配置用于指定管理器地址，默认连接本机 `127.0.0.1:8787`。
+- 增加后端 handler、service、repository、路由、前端 API、路由菜单、中英文文案及对应单元/集成测试。
+
 ## 上游更新时检索
 
 ### 返利邀请码注册
@@ -153,4 +163,17 @@ SettingKeyContactQRImageURL
 ContactQRImageURL
 ImageUpload
 contactQrImageUrl
+```
+
+### Codex Turn-State 续期与监控
+
+```text
+codex-turn-state
+codex_turn_state
+pinned_codex_turn_states
+CODEX_TURN_STATE_PANEL_URL
+CodexTurnStatePanel
+CodexTurnStateDegraded
+turn-state-manager
+model degradation
 ```
