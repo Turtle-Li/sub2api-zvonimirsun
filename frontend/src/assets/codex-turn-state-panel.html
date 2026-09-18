@@ -444,7 +444,7 @@ async function load() {
     if ($('notice').textContent === '续期状态暂不可用，请刷新重试。') $('notice').hidden = true;
     await Promise.all([renderHistory().catch(() => notice('最近探针历史暂不可用', true)), loadStats()]);
     $('meta').textContent =
-      `${state.static_proxy_count} 个静态代理 / ${state.dynamic_provider_count} 个动态来源 · 到期检查：${state.poll_interval_seconds} 秒（不调用模型） · ` +
+      `${state.static_proxy_count} 个静态代理 / ${state.dynamic_provider_count} 个动态来源 · 更新于 ` +
       new Date(state.generated_at * 1000).toLocaleTimeString();
   } catch (e) {
     $('meta').textContent = '加载失败：' + e.message;
@@ -579,7 +579,7 @@ function esc(s) {
 function cssId(s) { return String(s).replace(/[^A-Za-z0-9_-]/g, '_'); }
 
 load();
-setInterval(load, 15000);
+// Refresh on entry, explicit refresh, and completed management actions only.
 
 async function refreshProxySources() {
   try {
