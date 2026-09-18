@@ -115,7 +115,7 @@ func (h *CodexTurnStatePanelHandler) Proxy(c *gin.Context) {
 		response.Error(c, 503, "Codex panel service unavailable; check the local manager service")
 		return
 	}
-	defer upstream.Body.Close()
+	defer func() { _ = upstream.Body.Close() }()
 	payload, err := io.ReadAll(io.LimitReader(upstream.Body, 2*1024*1024+1))
 	if err != nil || len(payload) > 2*1024*1024 || !json.Valid(payload) {
 		response.Error(c, 502, "Invalid panel service response")

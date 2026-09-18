@@ -25,7 +25,7 @@ func TestLockedAccountUpdateKeepsLatestCodexPins(t *testing.T) {
 			db, mock, err := sqlmock.New()
 			require.NoError(t, err)
 			client := dbent.NewClient(dbent.Driver(entsql.OpenDB(dialect.Postgres, db)))
-			defer client.Close()
+			defer func() { _ = client.Close() }()
 			var current any
 			if tc.withCurrent {
 				current = []byte(`{"gpt-a":{"state":"new-pin"},"gpt-b":{"state":"other-pin"}}`)
